@@ -1,9 +1,13 @@
 package org.training.spring.springtraining20240603.rest;
 
+import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.training.spring.springtraining20240603.rest.models.Customer;
+import org.training.spring.springtraining20240603.rest.models.GeneralResponse;
 import org.training.spring.springtraining20240603.rest.models.HelloResponse;
 
 //@Controller
@@ -57,6 +61,7 @@ public class MyFirstRestWebService {
                          @RequestParam String surname) {
         return "hello7 " + name + " " + surname;
     }
+
     // http://127.0.0.1:9090/hello/hello6/osman/surname/yay
     @GetMapping("/hello6/{isim}/surname/{soyisim}")
     public String hello8(@PathVariable("isim") String name,
@@ -76,10 +81,56 @@ public class MyFirstRestWebService {
         return "hello9a " + customerParam;
     }
 
-    @PostMapping(value = "/hello10",produces = {MediaType.APPLICATION_XML_VALUE})
+    @PostMapping("/hello10")
+    @ResponseStatus(HttpStatus.MULTI_STATUS)
     public HelloResponse hello10(@RequestBody Customer customerParam) {
-        return new HelloResponse("Customer alındı", "sms dönecek");
+        return new HelloResponse("Customer alındı",
+                                 "sms dönecek");
     }
+
+    @PostMapping(value = "/hello11", consumes = {MediaType.APPLICATION_XML_VALUE,
+                                                 MediaType.APPLICATION_JSON_VALUE
+    }, produces = {MediaType.APPLICATION_XML_VALUE,
+                   MediaType.APPLICATION_JSON_VALUE
+    })
+    public HelloResponse hello11(@RequestBody Customer customerParam) {
+        return new HelloResponse("Customer alındı",
+                                 "sms dönecek");
+    }
+
+    @PostMapping("/hello12")
+    public ResponseEntity<HelloResponse> hello12(@RequestBody Customer customerParam) {
+        return ResponseEntity.status(HttpStatus.IM_USED)
+                             .header("deneme",
+                                     "deneme1")
+                             .body(new HelloResponse("Customer alındı 12",
+                                                     "sms dönecek 12"))
+                ;
+    }
+
+    // DONT DO IT
+    @PostMapping("/hello13")
+    @ResponseStatus(HttpStatus.MULTI_STATUS)
+    public GeneralResponse<HelloResponse> hello13(@RequestBody Customer customerParam) {
+        return GeneralResponse.createSuccess( new HelloResponse("Customer alındı",
+                                 "sms dönecek"));
+    }
+
+// DONT
+//    @PostMapping("/hello14/{op}")
+//    public ResponseEntity<?> hello12(@PathVariable("op") String op,
+//                                     HttpServletRequest requestParam) {
+//        switch (op){
+//            case "add":
+//                requestParam.getInputStream()
+//        }
+//        return ResponseEntity.status(HttpStatus.IM_USED)
+//                             .header("deneme",
+//                                     "deneme1")
+//                             .body(new HelloResponse("Customer alındı 12",
+//                                                     "sms dönecek 12"))
+//                ;
+//    }
 
 }
 
