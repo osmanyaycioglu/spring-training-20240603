@@ -48,11 +48,23 @@ public class MyFirstRestWebService {
         return "hello6 " + name + " " + surname;
     }
 
-    // http://127.0.0.1:9090/hello/hello3?name=osman&surname=yay
+    // http://127.0.0.1:9090/hello/hello5?name=osman&surname=yay
     @GetMapping("/hello5")
     public String hello7(@RequestParam String name,
                          @RequestParam String surname) {
         return "hello7 " + name + " " + surname;
     }
+    // http://127.0.0.1:9090/hello/hello6/osman/surname/yay
+    @GetMapping("/hello6/{isim}/surname/{soyisim}")
+    public String hello8(@PathVariable("isim") String name,
+                         @PathVariable("soyisim") String surname) {
+        return "hello8 " + name + " " + surname;
+    }
 
+    // http://127.0.0.1:9090/hello/hello7/ali?surname=veli
+    @GetMapping("/hello7/{name}")
+    public String hello9(@PathVariable String name,
+                         @RequestParam String surname) {
+        return "hello9 " + name + " " + surname;
+    }
 }
