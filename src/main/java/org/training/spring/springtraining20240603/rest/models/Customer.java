@@ -3,8 +3,8 @@ package org.training.spring.springtraining20240603.rest.models;
 public class Customer {
     private String name;
     private String surname;
-    private int weight;
-    private int height;
+    private Integer weight;
+    private Integer height;
 
     public String getName() {
         return name;
@@ -22,19 +22,29 @@ public class Customer {
         surname = surnameParam;
     }
 
-    public int getWeight() {
+    public Integer getWeight() {
         return weight;
     }
 
-    public void setWeight(final int weightParam) {
+    public void setWeight(final Integer weightParam) {
         weight = weightParam;
     }
 
-    public int getHeight() {
+    public Integer getHeight() {
         return height;
     }
 
-    public void setHeight(final int heightParam) {
+    public void setHeight(final Integer heightParam) {
         height = heightParam;
+    }
+
+    @Override
+    public String toString() {
+        return "Customer{" +
+               "name='" + name + '\'' +
+               ", surname='" + surname + '\'' +
+               ", weight=" + weight +
+               ", height=" + height +
+               '}';
     }
 }

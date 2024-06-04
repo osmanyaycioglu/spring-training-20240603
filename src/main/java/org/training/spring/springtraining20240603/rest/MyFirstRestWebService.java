@@ -1,7 +1,10 @@
 package org.training.spring.springtraining20240603.rest;
 
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.training.spring.springtraining20240603.rest.models.Customer;
+import org.training.spring.springtraining20240603.rest.models.HelloResponse;
 
 //@Controller
 //@ResponseBody
@@ -67,4 +70,16 @@ public class MyFirstRestWebService {
                          @RequestParam String surname) {
         return "hello9 " + name + " " + surname;
     }
+
+    @PostMapping("/hello8")
+    public String hello9(@RequestBody Customer customerParam) {
+        return "hello9a " + customerParam;
+    }
+
+    @PostMapping(value = "/hello10",produces = {MediaType.APPLICATION_XML_VALUE})
+    public HelloResponse hello10(@RequestBody Customer customerParam) {
+        return new HelloResponse("Customer alındı", "sms dönecek");
+    }
+
 }
+
