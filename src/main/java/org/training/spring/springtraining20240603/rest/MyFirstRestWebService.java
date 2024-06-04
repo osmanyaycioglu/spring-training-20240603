@@ -1,6 +1,7 @@
 package org.training.spring.springtraining20240603.rest;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -83,7 +84,7 @@ public class MyFirstRestWebService {
 
     @PostMapping("/hello10")
     @ResponseStatus(HttpStatus.MULTI_STATUS)
-    public HelloResponse hello10(@RequestBody Customer customerParam) {
+    public HelloResponse hello10(@Valid @RequestBody Customer customerParam) {
         return new HelloResponse("Customer alındı",
                                  "sms dönecek");
     }

@@ -1,9 +1,21 @@
 package org.training.spring.springtraining20240603.rest.models;
 
+import jakarta.validation.constraints.*;
+
 public class Customer {
+    @NotBlank
+    @Size(min = 2,max = 15)
     private String name;
+    @NotEmpty
+    @Size(min = 3,max = 25)
     private String surname;
+    @NotNull
+    @Min(10)
+    @Max(500)
     private Integer weight;
+    @NotNull
+    @Min(50)
+    @Max(300)
     private Integer height;
 
     public String getName() {
