@@ -1,0 +1,13 @@
+API DESIGN
+    Employee Object - Validation
+        Address
+        List<Phone>
+        name
+        surname
+        weight
+        height
+        department
+    Provision Controller
+        activate Employee
+        suspend employeeId
+    Provision Service - Controller a inject etmeniz
