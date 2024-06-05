@@ -1,10 +1,15 @@
 package org.training.spring.springtraining20240603.rest.models;
 
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.*;
+import org.training.spring.springtraining20240603.validation.RestrictedWords;
 
-public class Customer {
+import java.util.List;
+
+public class CustomerDto {
     @NotBlank
-    @Size(min = 2,max = 15)
+    @Size(min = 2,max = 15,message = "2 ile 15 arasında olmalı")
+    @RestrictedWords({"abc","xyz","123","234"})
     private String name;
     @NotEmpty
     @Size(min = 3,max = 25)
@@ -17,6 +22,12 @@ public class Customer {
     @Min(50)
     @Max(300)
     private Integer height;
+
+    @Valid
+    private AddressDto addressDto;
+
+    @Valid
+    private List<PhoneDto> phoneDtos;
 
     public String getName() {
         return name;
@@ -48,6 +59,22 @@ public class Customer {
 
     public void setHeight(final Integer heightParam) {
         height = heightParam;
+    }
+
+    public AddressDto getAddress() {
+        return addressDto;
+    }
+
+    public void setAddress(final AddressDto addressDtoParam) {
+        addressDto = addressDtoParam;
+    }
+
+    public List<PhoneDto> getPhones() {
+        return phoneDtos;
+    }
+
+    public void setPhones(final List<PhoneDto> phoneDtoParams) {
+        phoneDtos = phoneDtoParams;
     }
 
     @Override

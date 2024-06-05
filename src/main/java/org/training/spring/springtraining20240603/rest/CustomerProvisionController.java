@@ -1,23 +1,26 @@
 package org.training.spring.springtraining20240603.rest;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.training.spring.springtraining20240603.rest.models.Customer;
+import jakarta.validation.Valid;
+import org.springframework.web.bind.annotation.*;
+import org.training.spring.springtraining20240603.rest.models.CustomerDto;
+import org.training.spring.springtraining20240603.services.CustomerProvisionService;
 
 @RestController
 @RequestMapping("/api/v1/customer/provision")
 public class CustomerProvisionController {
+    private CustomerProvisionService customerProvisionService;
 
+    public CustomerProvisionController(final CustomerProvisionService customerProvisionServiceParam) {
+        customerProvisionService = customerProvisionServiceParam;
+    }
 
     @PostMapping("/add")
-    public String add(Customer customerParam){
-        return null;
+    public String add(@RequestBody @Valid CustomerDto customerDtoParam) {
+        return customerProvisionService.add(null);
     }
 
     @GetMapping("/suspend")
-    public String suspend(Long customerId){
+    public String suspend(@RequestParam String customerId) {
         return null;
     }
 

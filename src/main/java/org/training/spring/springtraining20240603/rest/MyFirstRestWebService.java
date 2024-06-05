@@ -1,13 +1,12 @@
 package org.training.spring.springtraining20240603.rest;
 
-import jakarta.servlet.http.HttpServletRequest;
+import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.training.spring.springtraining20240603.rest.models.Customer;
+import org.training.spring.springtraining20240603.rest.models.CustomerDto;
 import org.training.spring.springtraining20240603.rest.models.GeneralResponse;
 import org.training.spring.springtraining20240603.rest.models.HelloResponse;
 
@@ -78,13 +77,14 @@ public class MyFirstRestWebService {
     }
 
     @PostMapping("/hello8")
-    public String hello9(@RequestBody Customer customerParam) {
-        return "hello9a " + customerParam;
+    public String hello9(@RequestBody CustomerDto customerDtoParam) {
+        return "hello9a " + customerDtoParam;
     }
 
     @PostMapping("/hello10")
     @ResponseStatus(HttpStatus.MULTI_STATUS)
-    public HelloResponse hello10(@Valid @RequestBody Customer customerParam) {
+    @Operation(summary = "gelenelere hello yazar",description = "bu da uzun açıklama")
+    public HelloResponse hello10(@Valid @RequestBody CustomerDto customerDtoParam) {
         return new HelloResponse("Customer alındı",
                                  "sms dönecek");
     }
@@ -94,13 +94,13 @@ public class MyFirstRestWebService {
     }, produces = {MediaType.APPLICATION_XML_VALUE,
                    MediaType.APPLICATION_JSON_VALUE
     })
-    public HelloResponse hello11(@RequestBody Customer customerParam) {
+    public HelloResponse hello11(@RequestBody CustomerDto customerDtoParam) {
         return new HelloResponse("Customer alındı",
                                  "sms dönecek");
     }
 
     @PostMapping("/hello12")
-    public ResponseEntity<HelloResponse> hello12(@RequestBody Customer customerParam) {
+    public ResponseEntity<HelloResponse> hello12(@RequestBody CustomerDto customerDtoParam) {
         return ResponseEntity.status(HttpStatus.IM_USED)
                              .header("deneme",
                                      "deneme1")
@@ -112,7 +112,7 @@ public class MyFirstRestWebService {
     // DONT DO IT
     @PostMapping("/hello13")
     @ResponseStatus(HttpStatus.MULTI_STATUS)
-    public GeneralResponse<HelloResponse> hello13(@RequestBody Customer customerParam) {
+    public GeneralResponse<HelloResponse> hello13(@RequestBody CustomerDto customerDtoParam) {
         return GeneralResponse.createSuccess( new HelloResponse("Customer alındı",
                                  "sms dönecek"));
     }
