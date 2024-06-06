@@ -1,20 +1,34 @@
 package org.training.spring.springtraining20240603.services.models;
 
-import jakarta.validation.Valid;
-import jakarta.validation.constraints.*;
-import org.training.spring.springtraining20240603.validation.RestrictedWords;
+import jakarta.persistence.*;
 
 import java.util.List;
 
+@Entity
 public class Customer {
+    @Id
+    @GeneratedValue
+    private Long customerId;
+
     private String name;
     private String surname;
     private Integer weight;
     private Integer height;
 
+    @OneToOne(cascade = CascadeType.ALL)
     private Address address;
 
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Phone> phones;
+
+
+    public Long getCustomerId() {
+        return customerId;
+    }
+
+    public void setCustomerId(final Long customerIdParam) {
+        customerId = customerIdParam;
+    }
 
     public String getName() {
         return name;
