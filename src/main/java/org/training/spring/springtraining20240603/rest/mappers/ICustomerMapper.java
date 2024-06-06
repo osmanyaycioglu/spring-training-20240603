@@ -10,6 +10,8 @@ import org.training.spring.springtraining20240603.services.models.Address;
 import org.training.spring.springtraining20240603.services.models.Customer;
 import org.training.spring.springtraining20240603.services.models.Phone;
 
+import java.util.List;
+
 @Mapper
 public interface ICustomerMapper {
 
@@ -18,6 +20,10 @@ public interface ICustomerMapper {
     Customer toCustomer(CustomerDto customer);
 
     CustomerDto toCustomerDto(Customer customer);
+
+    List<Customer> toCustomers(List<CustomerDto> customer);
+
+    List<CustomerDto> toCustomerDtos(List<Customer> customer);
 
     Address toAddress(AddressDto address);
 

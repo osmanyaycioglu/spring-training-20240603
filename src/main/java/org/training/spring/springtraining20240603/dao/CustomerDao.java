@@ -24,4 +24,17 @@ public class CustomerDao {
         }
         customerRepository.save(customerParam);
     }
+
+    public Customer getCustomer(Long customerId){
+        return customerRepository.findById(customerId).orElse(null);
+    }
+
+    public List<Customer> getAllCustomers(){
+        return customerRepository.findAll();
+    }
+
+    public List<Customer> getCustomersByName(String name){
+        return customerRepository.findByNameOrderBySurname(name);
+    }
+
 }
