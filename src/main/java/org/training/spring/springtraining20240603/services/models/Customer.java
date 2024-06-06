@@ -1,8 +1,10 @@
 package org.training.spring.springtraining20240603.services.models;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.Fetch;
 
 import java.util.List;
+import java.util.Set;
 
 @Entity
 public class Customer {
@@ -10,16 +12,16 @@ public class Customer {
     @GeneratedValue
     private Long customerId;
 
-    private String name;
-    private String surname;
+    private String  name;
+    private String  surname;
     private Integer weight;
     private Integer height;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "customer")
     private Address address;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    private List<Phone> phones;
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "customer")
+    private Set<Phone> phones;
 
 
     public Long getCustomerId() {
@@ -70,11 +72,11 @@ public class Customer {
         address = addressParam;
     }
 
-    public List<Phone> getPhones() {
+    public Set<Phone> getPhones() {
         return phones;
     }
 
-    public void setPhones(final List<Phone> phonesParam) {
+    public void setPhones(final Set<Phone> phonesParam) {
         phones = phonesParam;
     }
 
