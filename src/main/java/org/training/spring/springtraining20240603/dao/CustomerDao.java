@@ -6,6 +6,7 @@ import org.training.spring.springtraining20240603.services.models.Customer;
 import org.training.spring.springtraining20240603.services.models.Phone;
 
 import java.util.List;
+import java.util.Set;
 
 @Repository
 public class CustomerDao {
@@ -17,7 +18,7 @@ public class CustomerDao {
 
     public void insertCustomer(Customer customerParam){
         customerParam.getAddress().setCustomer(customerParam);
-        List<Phone> phonesLoc = customerParam.getPhones();
+        Set<Phone> phonesLoc = customerParam.getPhones();
         for (Phone phoneLoc : phonesLoc) {
             phoneLoc.setCustomer(customerParam);
         }
