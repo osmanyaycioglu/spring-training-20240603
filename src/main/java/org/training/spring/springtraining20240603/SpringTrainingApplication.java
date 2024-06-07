@@ -6,10 +6,13 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Import;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.training.spring.springtraining20240603.beans.MySecondSpringBean;
 
 @SpringBootApplication
 @Import(FuncConfig.class)
+@EnableMethodSecurity(prePostEnabled = true)
 //@SpringBootApplication(scanBasePackages = {"org.training.spring.springtraining20240603",
 //                                           "a.b.c"
 //})
