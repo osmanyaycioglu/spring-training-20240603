@@ -1,6 +1,7 @@
 package org.training.spring.springtraining20240603.dao.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.training.spring.springtraining20240603.services.models.Customer;
 
@@ -16,6 +17,11 @@ public interface ICustomerRepository extends JpaRepository<Customer,Long> {
 
     @Query("select c from Customer c where c.name=?1")
     List<Customer> searchName(String name);
+
+    @Modifying
+    @Query("update Customer c set c.name=?1 where c.customerId=?2")
+    void updateName(String name,Long customerId);
+
 
     @Query(value = "select * from Customer c where c.name=?1",nativeQuery = true)
     List<Customer> searchNameNative(String name);
