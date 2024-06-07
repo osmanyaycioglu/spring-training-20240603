@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.*;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 public class SecurityConfig {
@@ -25,7 +26,15 @@ public class SecurityConfig {
     }
 
     @Bean
-    public SecurityFilterChain confSec(HttpSecurity httpSecurityParam) throws Exception {
+    public JWTFilter jwtFilter(JWTService jwtServiceParam,
+                               MyUserDetailService myUserDetailServiceParam) {
+        return new JWTFilter(jwtServiceParam,
+                             myUserDetailServiceParam);
+    }
+
+    @Bean
+    public SecurityFilterChain confSec(HttpSecurity httpSecurityParam,
+                                       JWTFilter jwtFilterParam) throws Exception {
         httpSecurityParam.headers()
                          .frameOptions()
                          .disable();
@@ -33,7 +42,8 @@ public class SecurityConfig {
                                 .csrf(CsrfConfigurer::disable)
                                 .authorizeHttpRequests(a ->
                                                                a.requestMatchers("/actuator/**",
-                                                                                 "/h2-console/**")
+                                                                                 "/h2-console/**",
+                                                                                 "/sec/**")
                                                                 .anonymous()
                                                                 .requestMatchers("/hello/**")
                                                                 .hasAnyAuthority("ADMIN")
@@ -46,8 +56,11 @@ public class SecurityConfig {
                                                                 .authenticated()
 
                                 )
+                                .addFilterBefore(jwtFilterParam,
+                                                 UsernamePasswordAuthenticationFilter.class)
                                 .formLogin(FormLoginConfigurer::disable)
-                                .httpBasic(Customizer.withDefaults())
+                                .httpBasic(HttpBasicConfigurer::disable)
+                                .sessionManagement(SessionManagementConfigurer::disable)
                                 .build();
     }
 
